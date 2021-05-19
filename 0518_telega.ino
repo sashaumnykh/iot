@@ -10,8 +10,8 @@
 #define S3 26
 #define sensorOut 38
 
-const char* ssid = "wienski";
-const char* password = "zTreparas1";
+const char* ssid = " ";
+const char* password = " ";
 
 int n;
 bool status_ok = true;
@@ -20,7 +20,7 @@ int red, green, blue, white;
 int red_tem, green_tem, blue_tem;
 // tcs3200 tcs(0, 4, 15, 13, 38); // (S0, S1, S2, S3, output pin)  //
 
-#define BOTtoken "1773050156:AAGEVcSbHNNO7A6_HpfS0WdKN3TAeRigSFc"  // your Bot Token (Get from Botfather)
+#define BOTtoken " "  // your Bot Token (Get from Botfather)
 
 #define CHAT_ID "-1001406607356"
 
