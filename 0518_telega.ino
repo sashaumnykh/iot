@@ -1,3 +1,4 @@
+
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>   // Universal Telegram Bot Library written by Brian Lough: https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot
@@ -10,17 +11,19 @@
 #define S3 26
 #define sensorOut 38
 
-const char* ssid = " ";
-const char* password = " ";
+const char* ssid = "wienski";
+const char* password = "zTreparas1";
 
-int n;
+int number = 10;
+float tol = 0.1;
 bool status_ok = true;
+int whereismistake;
 
 int red, green, blue, white;
 int red_tem, green_tem, blue_tem;
 // tcs3200 tcs(0, 4, 15, 13, 38); // (S0, S1, S2, S3, output pin)  //
 
-#define BOTtoken " "  // your Bot Token (Get from Botfather)
+#define BOTtoken "1773050156:AAGEVcSbHNNO7A6_HpfS0WdKN3TAeRigSFc"  // your Bot Token (Get from Botfather)
 
 #define CHAT_ID "-1001406607356"
 
@@ -55,20 +58,32 @@ void handleNewMessages(int numNewMessages) {
 
     if (text == "/get_colors"){
         bot.sendMessage(chat_id, "getting colors", "");
-        //red = tcs.colorRead('r');
-        //green = tcs.colorRead('g');
-        //blue = tcs.colorRead('b');
-        red = getred();
-        green = getgreen();
-        blue = getblue();
-        bot.sendMessage(chat_id, "Red = " + String(red)+ "\nGreen = " + String(green) + "\nBlue = " + String(blue));
-        if (abs(red - red_tem) > 10 or abs(green - green_tem) > 10 or abs(blue - blue_tem) > 10){
-          status_ok = false;
-          bot.sendMessage(chat_id, "Проверка не пройдена!");
+        for (int i = 0; i <= number; i++) {
+          red = getred();
+          green = getgreen();
+          blue = getblue();
+          bot.sendMessage(chat_id, "я в цикле");
+          bool prev_status = status_ok;
+          if (abs((red - red_tem)/red_tem) >= tol or abs((green - green_tem)/green_tem) >= tol){
+            status_ok = false;
+            }
+          if (abs((blue - blue_tem)/blue_tem) >= tol){
+            status_ok = false;
+            }
+          if (status_ok != prev_status){
+            whereismistake = i;
+          }
+          delay(100);
+        }
+        if (status_ok = false){
+          bot.sendMessage(chat_id, "Проверка не пройдена!\nНомер первого образца с ошибкой: " + String(whereismistake) + "\nПроведено проверок: " + String(i) + " из " + String(number));
         }
         else{
           bot.sendMessage(chat_id, "Проверка прошла успешно!");
-          }
+          bot.sendMessage(chat_id, "\nПроведено проверок: " + String(number) + " из " + String(number));
+        }
+  
+        //bot.sendMessage(chat_id, "Red = " + String(red)+ "\nGreen = " + String(green) + "\nBlue = " + String(blue));
     }
     if (text == "/scan_the_template"){
       red_tem = getred();
@@ -78,6 +93,7 @@ void handleNewMessages(int numNewMessages) {
       }
   }
 }
+
 
 int getred(){
   digitalWrite(S2,LOW);
