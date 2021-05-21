@@ -1,7 +1,7 @@
 
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
-#include <UniversalTelegramBot.h>   // Universal Telegram Bot Library written by Brian Lough: https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot
+#include <UniversalTelegramBot.h>
 #include <ArduinoJson.h>
 #include <tcs3200.h>
 
@@ -11,8 +11,8 @@
 #define S3 26
 #define sensorOut 38
 
-const char* ssid = "wienski";
-const char* password = "zTreparas1";
+const char* ssid = " ";
+const char* password = " ";
 
 int number = 10;
 float tol = 0.1;
@@ -23,9 +23,9 @@ int red, green, blue, white;
 int red_tem, green_tem, blue_tem;
 // tcs3200 tcs(0, 4, 15, 13, 38); // (S0, S1, S2, S3, output pin)  //
 
-#define BOTtoken "1773050156:AAGEVcSbHNNO7A6_HpfS0WdKN3TAeRigSFc"  // your Bot Token (Get from Botfather)
+#define BOTtoken " "
 
-#define CHAT_ID "-1001406607356"
+#define CHAT_ID "- "
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
@@ -62,7 +62,6 @@ void handleNewMessages(int numNewMessages) {
           red = getred();
           green = getgreen();
           blue = getblue();
-          bot.sendMessage(chat_id, "я в цикле");
           bool prev_status = status_ok;
           if (abs((red - red_tem)/red_tem) >= tol or abs((green - green_tem)/green_tem) >= tol){
             status_ok = false;
