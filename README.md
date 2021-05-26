@@ -7,7 +7,7 @@
 Более подробную информацию можно найти в [презентации](https://docs.google.com/presentation/d/18AFHwbCeLA-mY5IJTaP2wKUx5bwpEl5VA2HG1RhBtR4/edit?usp=sharing)
 
 ### Состав устройства:
-- микроконтроллер ESP32;
+- микроконтроллер ESP32-piko-kit;
 - датчик цвета на основе TCS3200;
 - соединительные провода
 
